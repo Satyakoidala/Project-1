@@ -1,10 +1,54 @@
 {% extends 'main/layout.html' %}
+{% load static %}
 
 {% block head %}
-    <title>Welcome to CollegePredictor</title>
+<title>CollegePredictor</title>
+<link rel="stylesheet" href="{% static 'main/home.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block body %}
-    <h1>Welcome to CollegePredictor, Choose Your Favourite College Here</h1>
-    <h2>This is HOME PAGE</h2>
+    <div class="topnav">
+        <label>College Predictor</label>
+        <div class="search-container">
+            <form action="">
+                <input type="text" placeholder="Search.." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        
+        {% if check %}
+        <a href="{% url 'main:logout' %}" >Logout</a>
+        <a href="{% url 'main:contactUs' %}">Contact Us</a>
+        <a href="{% url 'main:aboutUs' %}">About Us</a>
+        <a href="{% url 'main:home' %}" class="active">Home</a>
+        {% else %}
+        <a href="{% url 'main:contactUs' %}">Contact Us</a>
+        <a href="{% url 'main:aboutUs' %}">About Us</a>
+        <a href="{% url 'main:login' %}" >Login/Signup</a>
+        <a href="{% url 'main:home' %}" class="active">Home</a>
+        {% endif %}
+
+    </div>
+
+
+    <div class="context">
+        here lies home page
+    </div>
+
+<div class="area">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
 {% endblock %}

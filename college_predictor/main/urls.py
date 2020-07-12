@@ -16,7 +16,5 @@ urlpatterns = [
     path("success/", views.success, name="success"),
     path("email/", views.emailview, name="email"),
     path("signup/", views.signup, name="signup"),
-    path("headerleft/", views.headerleft, name="headerleft"),
-    path("headerright/", views.headerright, name="headerright"),
     path("default/", views.default, name="default"),
 ]

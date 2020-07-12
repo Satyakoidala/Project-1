@@ -8,22 +8,32 @@ from main.forms import SignUpForm
 
 # Create your views here.
 
+###############################################This is INDEX VIEW###################################################################
 def index(request):
-    # if not request.user.is_authenticated:
-    #     return HttpResponseRedirect(reverse('main:login'))
-    return render(request,"main/index.html")
+    if request.user.is_authenticated:
+         return render(request, "main/index.html", {
+             'check': True,
+         })
+    return render(request,"main/index.html", {
+        'check': False,
+    })
 
+
+###############################################This is HOME VIEW###################################################################
 def home(request):
-    return render(request,"main/home.html")
+    if request.user.is_authenticated:
+         return render(request, "main/home.html", {
+             'check': True,
+         })
+    return render(request,"main/home.html", {
+        'check': False,
+    })
 
-def headerright(request):
-    return render(request,"main/headerright.html")
 
-def headerleft(request):
-    return render(request,"main/headerleft.html")
 
 def default(request):
     return render(request,"main/default.html")
+
 
 def searchresult(request):
     errors = []
@@ -85,7 +95,17 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'main/signup.html', {'form': form})
 
+
+###############################################This is LOGIN VIEW###################################################################
 def loginview(request):
+    if request.user.is_authenticated:
+         return render(request, "main/login.html", {
+             'check': True,
+         })
+    else:
+        return render(request,"main/login.html", {
+        'check': False,
+        })
     if request.method=="POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -99,18 +119,40 @@ def loginview(request):
             })
     return render(request,"main/login.html")
 
-
+###############################################This is LOGOUT VIEW###################################################################
 def logoutview(request):
+    if request.user.is_authenticated:
+         return render(request, "main/login.html", {
+             'check': True,
+         })
+    else:
+        return render(request,"main/login.html", {
+        'check': False,
+        })
     logout(request)
-    return render(request, "main/login.html", {
-        "message": "Logged out."
+    return render(request, "main/logout.html")
+
+
+###############################################This is ABOUTUS VIEW###################################################################
+def aboutUs(request):
+    if request.user.is_authenticated:
+         return render(request, "main/about.html", {
+             'check': True,
+         })
+    return render(request,"main/about.html", {
+        'check': False,
     })
 
-def aboutUs(request):
-    pass
 
+###############################################This is CONTACTUS VIEW###################################################################
 def contactUs(request):
-    pass
+    if request.user.is_authenticated:
+         return render(request, "main/contact.html", {
+             'check': True,
+         })
+    return render(request,"main/contact.html", {
+        'check': False,
+    })
 
 def success(request):
     return render(request,"main/success.html")

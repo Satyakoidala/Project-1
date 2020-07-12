@@ -3,7 +3,7 @@
 
 {% block head %}
 <title>CollegePredictor</title>
-<link rel="stylesheet" href="{% static 'main/login.css' %}">
+<link rel="stylesheet" href="{% static 'main/about.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
@@ -16,37 +16,22 @@
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
-        
         {% if check %}
         <a href="{% url 'main:logout' %}" >Logout</a>
-        <a href="{% url 'main:contactUs' %}">Contact Us</a>
-        <a href="{% url 'main:aboutUs' %}">About Us</a>
+        <a href="{% url 'main:contactUs' %}" >Contact Us</a>
+        <a href="{% url 'main:aboutUs' %}" class="active">About Us</a>
         <a href="{% url 'main:home' %}" >Home</a>
         {% else %}
         <a href="{% url 'main:contactUs' %}">Contact Us</a>
-        <a href="{% url 'main:aboutUs' %}">About Us</a>
-        <a href="{% url 'main:login' %}" class="active">Login/Signup</a>
+        <a href="{% url 'main:aboutUs' %}" class="active">About Us</a>
+        <a href="{% url 'main:login' %}" >Login/Signup</a>
         <a href="{% url 'main:home' %}" >Home</a>
         {% endif %}
     </div>
 
-    <div style="margin-top: 80px; position: absolute; top: 0vh; ">
-        {% if message %}
-        <div>{{ message }}</div>
-        {% endif %}
-
-    <form action="{% url 'main:login' %}" method = "POST">
-        {% csrf_token %}
-        <input type="text", name = "username" placeholder = "Username">
-        <input type="password" name = "password" placeholder="Password">
-        <input type="submit" value="Login">
-    </form>
-    <br>
-    <br>
-    </div>
 
     <div class="context">
-        here lies login page
+        here lies about page
     </div>
 
 <div class="area">
@@ -65,5 +50,3 @@
 </div>
 
 {% endblock %}
-
-

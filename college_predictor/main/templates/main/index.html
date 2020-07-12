@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block head %}
-<title>Welcome to CollegePredictor</title>
-<link rel="stylesheet" href="{% static 'main/home.css' %}">
+<title>CollegePredictor</title>
+<link rel="stylesheet" href="{% static 'main/index.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
@@ -16,15 +16,24 @@
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
-        <a href="">Contact</a>
-        <a href="">About Us</a>
-        <a href="">Login</a>
-        <a href="" class="active">Home</a>
+
+        {% if check %}
+        <a href="{% url 'main:logout' %}" >Logout</a>
+        <a href="{% url 'main:contactUs' %}">Contact Us</a>
+        <a href="{% url 'main:aboutUs' %}">About Us</a>
+        <a href="{% url 'main:home' %}" >Home</a>
+        {% else %}
+        <a href="{% url 'main:contactUs' %}">Contact Us</a>
+        <a href="{% url 'main:aboutUs' %}">About Us</a>
+        <a href="{% url 'main:login' %}" >Login/Signup</a>
+        <a href="{% url 'main:home' %}" >Home</a>
+        {% endif %}
+
     </div>
 
 
     <div class="context">
-
+        here lies index page
     </div>
 
 <div class="area">
