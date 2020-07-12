@@ -1,0 +1,28 @@
+{% extends 'main/layout.html' %}
+
+{% block head %}
+    <title>Welcome to CollegePredictor</title>
+{% endblock %}
+
+{% block body %}
+    <h1>Welcome to CollegePredictor, Choose Your Favourite College Here</h1>
+    <h2>This is SIGNUP PAGE</h2>
+
+    <form action="{% url 'main:signup' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.help_text %}
+              <small style="color: white">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+          </p>
+        {% endfor %}
+        <button type="submit">Sign up</button>
+      </form>
+
+{% endblock %}
