@@ -1,0 +1,588 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block head %}
+<title>CollegePredictor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'main/styles.css' %}">
+<link rel="stylesheet" href="{% static 'main/h.css' %}">
+
+
+<script>
+
+  window.onload = () => {
+    document.getElementsByName('radio_test').forEach(element => element.checked = false);
+  };
+
+  function showPreferences() {
+    if (document.getElementById('checkbox1').checked === true) {
+      document.getElementById('preferences1').style.display = "block";
+    }
+    else {
+      document.getElementById('preferences1').style.display = "none";
+    }
+
+    if (document.getElementById('checkbox2').checked === true) {
+      document.getElementById('preferences2').style.display = "block";
+      if (document.querySelector('.form2 .box2 .gender-out').value!=''){
+        document.querySelector('#preferences2 .gender').value=document.querySelector('.form2 .box2 .gender-out').value;
+      }
+      document.querySelector('.box2').style.display="none";
+    }
+    else {
+      document.getElementById('preferences2').style.display = "none";
+      document.querySelector('.box2').style.display="";
+    }
+
+    if (document.getElementById('checkbox3').checked === true) {
+      document.getElementById('preferences3').style.display = "block";
+      if (document.querySelector('.form3 .box3 .gender-out').value!=''){
+        document.querySelector('#preferences3 .gender').value=document.querySelector('.form3 .box3 .gender-out').value;
+      }
+      document.querySelector('.box3').style.display="none";
+      document.getElementsByClassName('choice-district3')[0].style.marginLeft="0px";
+    }
+    else {
+      document.getElementById('preferences3').style.display = "none";
+      document.querySelector('.box3').style.display="";
+      document.getElementsByClassName('choice-district3')[0].style.marginLeft="60px";
+    }
+  }
+
+  function showForm() {
+    if (document.getElementById('radio1').checked === true) {
+      document.getElementsByClassName('form1')[0].style.display = "block";
+      document.getElementsByClassName('form2')[0].style.display = "none";
+      document.getElementsByClassName('form3')[0].style.display = "none";
+      document.getElementsByClassName('form1')[0].reset();
+    }
+    else {
+      document.getElementsByClassName('form1')[0].style.display = "none";
+    }
+
+    if (document.getElementById('radio2').checked === true) {
+      document.getElementsByClassName('form2')[0].style.display = "block";
+      document.getElementsByClassName('form1')[0].style.display = "none";
+      document.getElementsByClassName('form3')[0].style.display = "none";
+      document.getElementsByClassName('form2')[0].reset();
+    }
+    else {
+      document.getElementsByClassName('form2')[0].style.display = "none";
+    }
+
+    if (document.getElementById('radio3').checked === true) {
+      document.getElementsByClassName('form3')[0].style.display = "block";
+      document.getElementsByClassName('form1')[0].style.display = "none";
+      document.getElementsByClassName('form2')[0].style.display = "none";
+      document.getElementsByClassName('form3')[0].reset();
+    }
+    else {
+      document.getElementsByClassName('form3')[0].style.display = "none";
+    }
+  }
+</script>
+{% endblock %}
+
+{% block body %}
+
+<div class="topnav">
+  <label>College Predictor</label>
+  <div class="search-container">
+    <form action="{% url 'main:searchresult' %}" method="GET">
+      <input name="search-box" type="text" placeholder="Type College Name">
+      <button type="submit" value="Enter" style="color: grey;">Enter</button>
+    </form>
+  </div>
+
+  {% if check %}
+  <a href="{% url 'main:logout' %}">Logout</a>
+  <a href="{% url 'main:contactUs' %}">Contact Us</a>
+  <a href="{% url 'main:aboutUs' %}">About Us</a>
+  <a href="{% url 'main:home' %}" class="active">Home</a>
+  {% else %}
+  <a href="{% url 'main:contactUs' %}">Contact Us</a>
+  <a href="{% url 'main:aboutUs' %}">About Us</a>
+  <a href="{% url 'main:login' %}">Login/Signup</a>
+  <a href="{% url 'main:home' %}" class="active">Home</a>
+  {% endif %}
+</div>
+
+<div class="outer">
+
+  <div class="formtitle">
+    <p>Find Your College Here, Just answer few Queries and See your list of Colleges suitable for you.</p>
+  </div>
+
+  <div class="formbody">
+    <div class="formtype">
+      <label name="searchby">Search By: </label>
+      <input id="radio1" type="radio" name="radio_test" placeholder="District Only" onclick="showForm()">
+      <label for="button1">District Only</label>
+      <input id="radio2" type="radio" name="radio_test" placeholder="Rank Only" onclick="showForm()">
+      <label for="button2">Rank Only</label>
+      <input id="radio3" type="radio" name="radio_test" placeholder="Both Rank and District" onclick="showForm()">
+      <label for="button3">Both Rank and District</label>
+    </div>
+
+    <form action="{% url 'main:query1' %}" class="form1" method="GET">
+      <label name="user help">* Please select the district name to get the list of colleges in that district.</label>
+      <br><br>
+      <label name="for district">Select your district* :</label>
+      <select name="choice-district" required>
+        <option value="" disabled selected hidden>Choose your district</option>
+        <option value="Anantapuramu">Anantapur</option>
+        <option value="Chitoor">Chitoor</option>
+        <option value="East Godavari">East Godavari</option>
+        <option value="Guntur">Guntur</option>
+        <option value="Kadapa">Kadapa</option>
+        <option value="Krishna">Krishna</option>
+        <option value="Kurnool">Kurnool</option>
+        <option value="Nellore">Nellore</option>
+        <option value="Prakasam">Prakasam</option>
+        <option value="Srikakulam">Srikakulam</option>
+        <option value="Visakhapatnam">Visakhapatnam</option>
+        <option value="Vizianagaram">Vizianagaram</option>
+        <option value="West Godavari">West Godavari</option>
+      </select>
+      <br>
+      <br>
+      <input id="checkbox1" type="checkbox" name="preferences-checkbox" onclick=showPreferences()>
+      <label for="preferences-checkbox" name="preferences-message">Please tick, If you have your own preferences of
+        choice.</label>
+      <br>
+      <br>
+      <div id="preferences1">
+        <div class="preference-box">
+          <div class="left_side">
+            <label>Gender* :</label>
+            <select name="Gender">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>College type :</label>
+            <select name="college-type">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="0">Institution / Regular</option>
+              <option value="1">University</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Do you prefer Co-education :</label>
+            <select name="coed">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>College Size (in acres) :</label>
+            <select name="college-size">
+              <option value="" disabled selected hidden>Select category</option>
+              <option value="1">lesser than 50</option>
+              <option value="2">in between 50 - 99</option>
+              <option value="3">in between 100 - 199</option>
+              <option value="4">greater than or equals 200</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Academics Quality (out of 5):</label>
+            <select name="academics">
+              <option value="" disabled selected hidden>Select category</option>
+              <option value="0">0 and above</option>
+              <option value="1">1 and above</option>
+              <option value="2">2 and above</option>
+              <option value="3">3 and above</option>
+              <option value="4">4 and above</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>Placement Rating (out of 5):</label>
+            <select name="placements">
+              <option value="" disabled selected hidden>Select category</option>
+              <option value="0">0 and above</option>
+              <option value="1">1 and above</option>
+              <option value="2">2 and above</option>
+              <option value="3">3 and above</option>
+              <option value="4">4 and above</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Are you interested in Sports ? :</label>
+            <select name="sports">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes, it's a must.</option>
+              <option value="0">No, not much important.</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>Do you require Hostel Facility ? :</label>
+            <select name="hostel">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes,I need it.</option>
+              <option value="0">No, not needed.</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Do you require Bus Facility? :</label>
+            <select name="bus">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes,I need it.</option>
+              <option value="0">No, not needed.</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>Are you interested in ActivityClubs / NSS ? :</label>
+            <select name="clubs">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes, it's a must.</option>
+              <option value="0">No, not much important.</option>
+            </select>
+          </div>
+
+          <div class="bottom">
+            <label>Do you have importance for Medical Care Facility (within or around 5kms radius) ? :</label>
+            <select name="medical">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes, it's a must.</option>
+              <option value="0">No, not much important.</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <br>
+      <input name="submit-btn" type="submit" value="Submit">
+
+    </form>
+
+    <form action="{% url 'main:query2' %}" class="form2" method="GET">
+      <label name="user help">* Please enter your Rank and Caste category to get list of colleges available to
+        you.</label>
+      <br><br>
+      <label name="for rank">Enter your Rank* :</label>
+      <input name="rank" type="text" placeholder="Enter Rank" required>
+      <label name="for caste">Select your Caste Category* :</label>
+      <select name="choice-caste" required>
+        <option value="" disabled selected hidden>Choose your caste</option>
+        <option value="oc">OC</option>
+        <option value="bca">BCA</option>
+        <option value="bcb">BCB</option>
+        <option value="bcc">BCC</option>
+        <option value="bcd">BCD</option>
+        <option value="bce">BCE</option>
+        <option value="sc">SC</option>
+        <option value="st">ST</option>
+      </select>
+      <br><br>
+      <div class="box2" style="width:auto; float:left;">
+      <label name="for gender">Gender* :</label>
+      <select name="gender-out" class="gender-out" required>
+        <option value="" disabled selected hidden>Select type</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      </div>
+      <br>
+      <br>
+      <input id="checkbox2" type="checkbox" name="preferences-checkbox" onclick="showPreferences()">
+      <label for="preferences-checkbox" name="preferences-message">Please tick, If you have your own preferences of
+        choice.</label>
+      <br>
+      <br>
+      <div id="preferences2">
+        <div class="preference-box">
+          <div class="left_side">
+            <label>Gender* :</label>
+            <select name="Gender" class="gender">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>College type :</label>
+            <select name="college-type">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="0">Institution / Regular</option>
+              <option value="1">University</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Do you prefer Co-education :</label>
+            <select name="coed">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>College Size (in acres) :</label>
+            <select name="college-size">
+              <option value="" disabled selected hidden>Select category</option>
+              <option value="1">lesser than 50</option>
+              <option value="2">in between 50 - 99</option>
+              <option value="3">in between 100 - 199</option>
+              <option value="4">greater than or equals 200</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Academics Quality (out of 5):</label>
+            <select name="academics">
+              <option value="" disabled selected hidden>Select category</option>
+              <option value="1">0 and above</option>
+              <option value="2">1 and above</option>
+              <option value="3">2 and above</option>
+              <option value="4">3 and above</option>
+              <option value="5">4 and above</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>Placement Rating (out of 5):</label>
+            <select name="placements">
+              <option value="" disabled selected hidden>Select category</option>
+              <option value="1">0 and above</option>
+              <option value="2">1 and above</option>
+              <option value="3">2 and above</option>
+              <option value="4">3 and above</option>
+              <option value="5">4 and above</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Are you interested in Sports ? :</label>
+            <select name="sports">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes, it's a must.</option>
+              <option value="0">No, not much important.</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>Do you require Hostel Facility ? :</label>
+            <select name="hostel">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes,I need it.</option>
+              <option value="0">No, not needed.</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Do you require Bus Facility? :</label>
+            <select name="bus">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes,I need it.</option>
+              <option value="0">No, not needed.</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>Are you interested in ActivityClubs / NSS ? :</label>
+            <select name="clubs">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes, it's a must.</option>
+              <option value="0">No, not much important.</option>
+            </select>
+          </div>
+
+          <div class="bottom">
+            <label>Do you have importance for Medical Care Facility (within or around 5kms radius) ? :</label>
+            <select name="medical">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes, it's a must.</option>
+              <option value="0">No, not much important.</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <br>
+      <input name="submit-btn" type="submit" value="Submit">
+    </form>
+
+    <form action="{% url 'main:query3' %}" class="form3" method="GET">
+      <label name="user help">* Please enter your rank and choose your category and district to get know the colleges
+        available to you in your district.</label>
+      <br><br>
+      <label name="for rank">Enter your Rank* :</label>
+      <input name="rank" type="text" placeholder="Enter rank" required>
+      <label name="for caste">Select your Caste Category* :</label>
+      <select name="choice-caste" required>
+        <option value="" disabled selected hidden>Choose your caste</option>
+        <option value="oc">OC</option>
+        <option value="bca">BCA</option>
+        <option value="bcb">BCB</option>
+        <option value="bcc">BCC</option>
+        <option value="bcd">BCD</option>
+        <option value="bce">BCE</option>
+        <option value="sc">SC</option>
+        <option value="st">ST</option>
+      </select>
+      <br>
+      <br>
+      <div class="box3" style="width:auto;float: left;">
+      <label name="for gender">Gender* :</label>
+      <select name="gender-out" class="gender-out" required>
+        <option value="" disabled selected hidden>Select type</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      </div>
+      <label name="for district">Select your district* :</label>
+      <select class="choice-district3" name="choice-district" required>
+        <option value="" disabled selected hidden>Choose your district</option>
+        <option value="Anantapuramu">Anantapur</option>
+        <option value="Chitoor">Chitoor</option>
+        <option value="East Godavari">East Godavari</option>
+        <option value="Guntur">Guntur</option>
+        <option value="Kadapa">Kadapa</option>
+        <option value="Krishna">Krishna</option>
+        <option value="Kurnool">Kurnool</option>
+        <option value="Nellore">Nellore</option>
+        <option value="Prakasam">Prakasam</option>
+        <option value="Srikakulam">Srikakulam</option>
+        <option value="Visakhapatnam">Visakhapatnam</option>
+        <option value="Vizianagaram">Vizianagaram</option>
+        <option value="West Godavari">West Godavari</option>
+      </select>
+      <br>
+      <br>
+      <input id="checkbox3" type="checkbox" name="preferences-checkbox" onclick="showPreferences()">
+      <label for="preferences-checkbox" name="preferences-message">Please tick, If you have your own preferences of
+        choice.</label>
+      <br>
+      <br>
+      <div id="preferences3">
+        <div class="preference-box">
+          <div class="left_side">
+            <label>Gender* :</label>
+            <select name="Gender" class="gender">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>College type :</label>
+            <select name="college-type">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="0">Institution / Regular</option>
+              <option value="1">University</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Do you prefer Co-education :</label>
+            <select name="coed">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>College Size (in acres) :</label>
+            <select name="college-size">
+              <option value="" disabled selected hidden>Select category</option>
+              <option value="1">lesser than 50</option>
+              <option value="2">in between 50 - 99</option>
+              <option value="3">in between 100 - 199</option>
+              <option value="4">greater than or equals 200</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Academics Quality (out of 5):</label>
+            <select name="academics">
+              <option value="" disabled selected hidden>Select category</option>
+              <option value="1">0 and above</option>
+              <option value="2">1 and above</option>
+              <option value="3">2 and above</option>
+              <option value="4">3 and above</option>
+              <option value="5">4 and above</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>Placement Rating (out of 5):</label>
+            <select name="placements">
+              <option value="" disabled selected hidden>Select category</option>
+              <option value="1">0 and above</option>
+              <option value="2">1 and above</option>
+              <option value="3">2 and above</option>
+              <option value="4">3 and above</option>
+              <option value="5">4 and above</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Are you interested in Sports ? :</label>
+            <select name="sports">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes, it's a must.</option>
+              <option value="0">No, not much important.</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>Do you require Hostel Facility ? :</label>
+            <select name="hostel">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes,I need it.</option>
+              <option value="0">No, not needed.</option>
+            </select>
+          </div>
+
+          <div class="left_side">
+            <label>Do you require Bus Facility? :</label>
+            <select name="bus">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes,I need it.</option>
+              <option value="0">No, not needed.</option>
+            </select>
+          </div>
+
+          <div class="right_side">
+            <label>Are you interested in ActivityClubs / NSS ? :</label>
+            <select name="clubs">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes, it's a must.</option>
+              <option value="0">No, not much important.</option>
+            </select>
+          </div>
+
+          <div class="bottom">
+            <label>Do you have importance for Medical Care Facility (within or around 5kms radius) ? :</label>
+            <select name="medical">
+              <option value="" disabled selected hidden>Select type</option>
+              <option value="1">Yes, it's a must.</option>
+              <option value="0">No, not much important.</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <br>
+      <input name="submit-btn" type="submit" value="Submit">
+    </form>
+  </div>
+
+</div>
+
+
+{% endblock %}

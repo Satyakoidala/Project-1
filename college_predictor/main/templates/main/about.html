@@ -1,0 +1,70 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block head %}
+<title>CollegePredictor</title>
+<link rel="stylesheet" href="{% static 'main/styles.css' %}">
+<link rel="stylesheet" href="{% static 'main/a.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="topnav">
+    <label>College Predictor</label>
+    <div class="search-container">
+        <form action="{% url 'main:searchresult' %}" method="GET">
+            <input name="search-box" type="text" placeholder="Type College Name">
+            <button type="submit" value="Enter" style="color: grey;">Enter</button>
+        </form>
+    </div>
+    {% if check %}
+    <a href="{% url 'main:logout' %}">Logout</a>
+    <a href="{% url 'main:contactUs' %}">Contact Us</a>
+    <a href="{% url 'main:aboutUs' %}" class="active">About Us</a>
+    <a href="{% url 'main:home' %}">Home</a>
+    {% else %}
+    <a href="{% url 'main:contactUs' %}">Contact Us</a>
+    <a href="{% url 'main:aboutUs' %}" class="active">About Us</a>
+    <a href="{% url 'main:login' %}">Login/Signup</a>
+    <a href="{% url 'main:home' %}">Home</a>
+    {% endif %}
+</div>
+
+
+<div class="context">
+    <h4><strong>OVERVIEW OF OUR PROJECT : </strong></h4>
+    <ul>
+        <li>As soon as a student completes his/her intermediate education, the first goal of any student is to get into
+            an appropriate Undergraduate College.
+            Students face difficulty inorder to choose a right college. So, our COLLEGE PREDICTOR project helps them in
+            choosing a better college for him/her based on their preferences.</li>
+        <br>
+        <li>College Predictor is a web-based application, where student inputs his/her competitive rank like that of
+            Eamcet, Caste and Gender.
+            These three are the key attributes for any placement in any college under any Board Of Education, especially
+            in India.
+            Our College Predictor only works for Engineering Category.Along with the key fields, user may choose to give
+            their own preferences in various facilities and services offered by the colleges
+            like College Type, Bus Facility, Hostel, Sports, Medical Care, etc.Based on these preferences taken from the
+            student, we shall provide you a match percentile for every college that qualifies
+            you based on your rank. College Predictor displays the list of colleges on a webpage as a response. So, all
+            you need to do is to fill a small form in the Homepage and click on submit.
+            In a few seconds your result shall be displayed.
+            The result(list of colleges) include columns such as Eamcet Code, College Name, Course Code, Place, Contact
+            No, Website, NBA Accreditation, NAAC Rating, NIRF Ranking, Preferences Match %.</li>
+        <br>
+        <li>We have also provided an automated e-mail generator mechanism especially for the authorised users only,
+            which sends the last result queried by the user.
+            So, you need to make sure you need to signed up and logged into your account.</li>
+    </ul>
+    <h4><strong>STEPS TO VIEW YOUR RESULT : </strong></h4>
+    <ol>
+        <li>Go to Login/SignUp page and register using signup form.</li>
+        <li>If you are already an existing user, don't forget to login using the Login/SignUp page.</li>
+        <li>Go to Homepage choose the type of form and fill it with all your preferences and the necessary fields, and
+            submit it.</li>
+        <li>After a few seconds, you will be redirected to your result</li>
+        <li>You don't need to note down your result, feel free to use the mail service provided by us.</li>
+    </ol>
+</div>
+
+{% endblock %}

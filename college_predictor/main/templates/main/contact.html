@@ -1,0 +1,41 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block head %}
+<title>CollegePredictor</title>
+<link rel="stylesheet" href="{% static 'main/ct.css' %}">
+<link rel="stylesheet" href="{% static 'main/styles.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="topnav">
+        <label>College Predictor</label>
+        <div class="search-container">
+            <form action="{% url 'main:searchresult' %}" method="GET">
+                <input name="search-box" type="text" placeholder="Type College Name">
+                <button type="submit" value="Enter" style="color: grey;">Enter</button>
+            </form>  
+        </div>
+        {% if check %}
+        <a href="{% url 'main:logout' %}" >Logout</a>
+        <a href="{% url 'main:contactUs' %}" class="active">Contact Us</a>
+        <a href="{% url 'main:aboutUs' %}">About Us</a>
+        <a href="{% url 'main:home' %}" >Home</a>
+        {% else %}
+        <a href="{% url 'main:contactUs' %}" class="active">Contact Us</a>
+        <a href="{% url 'main:aboutUs' %}">About Us</a>
+        <a href="{% url 'main:login' %}" >Login/Signup</a>
+        <a href="{% url 'main:home' %}" >Home</a>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <div class="co">
+            <h2>Contact Us At</h2>
+        </br>
+            <p>Phone No: 9652225075, 9247866988, 6303486927, 8919941861<br></p>
+            <p>Email: <i>sravani.cme14@gmail.com</i>            </p>
+        </div>
+    </div>
+
+{% endblock %}

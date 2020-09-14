@@ -1,0 +1,269 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block head %}
+<title>CollegePredictor</title>
+<link rel="stylesheet" href="{% static 'main/styles.css' %}">
+<link rel="stylesheet" href="{% static 'main/r.css' %}">
+
+<script>
+  function requestmailservice() {
+    location.href = "{% url 'main:mail' %}";
+  }
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="topnav">
+  <label>College Predictor</label>
+  <div class="search-container">
+    <form action="{% url 'main:searchresult' %}" method="GET">
+      <input name="search-box" type="text" placeholder="Type College Name">
+      <button type="submit" value="Enter" style="color: grey;">Enter</button>
+    </form>
+  </div>
+
+  {% if check %}
+  <a href="{% url 'main:logout' %}">Logout</a>
+  <a href="{% url 'main:contactUs' %}">Contact Us</a>
+  <a href="{% url 'main:aboutUs' %}">About Us</a>
+  <a href="{% url 'main:home' %}">Home</a>
+  {% else %}
+  <a href="{% url 'main:contactUs' %}">Contact Us</a>
+  <a href="{% url 'main:aboutUs' %}">About Us</a>
+  <a href="{% url 'main:login' %}">Login/Signup</a>
+  <a href="{% url 'main:home' %}">Home</a>
+  {% endif %}
+
+</div>
+
+<div class="outer">
+  <p style="text-align: center;color: white;">Result</p>
+  <div class="inner">
+
+    {% if querytype == 1 %}
+    <table>
+      <tr>
+        <th>Eamcet Code</th>
+        <th>College Name</th>
+        <th>Course Code</th>
+        <th>Place</th>
+        <th>Contact No.</th>
+        <th>Website</th>
+        <th>NBA Accreditation</th>
+        <th>NAAC Rating</th>
+        <th>NIRF Ranking</th>
+        {% if preferences %}
+        <th>Preferences Match %</th>
+        {% endif %}
+      </tr>
+      {% for i in qs %}
+      <tr>
+        <td>
+          {{i.Eamcet_Code}}
+        </td>
+        <td>
+          {{i.College_Name}}
+        </td>
+        <td>
+          {{i.Course_Code}}
+        </td>
+        <td>
+          {{i.Place}}
+        </td>
+        <td>
+          {% if i.Contact_No == None %}
+          <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+          {% else %}
+          {{i.Contact_No}}
+          {% endif %}
+        </td>
+        <td>
+          {% if i.Website == None %}
+          <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+          {% else %}
+          {{i.Website}}
+          {% endif %}
+        </td>
+        <td>{% if i.NBA == None %}
+          <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+          {% else %}
+          <img src="https://img.icons8.com/flat_round/32/000000/checkmark.png" />
+          {% endif %}
+        </td>
+        <td>{% if i.NAAC == None %}
+          <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+          {% else %}
+          {{ i.NAAC }}
+          {% endif %}
+        </td>
+        <td>{% if i.NIRF == None %}
+          <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+          {% else %}
+          {{ i.NIRF }}
+          {% endif %}
+        </td>
+
+        {% if preferences %}
+        <td>
+          {{i.percentage}}
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+    {% elif querytype == 2 %}
+    <table>
+      <tr>
+        <th>Eamcet Code</th>
+        <th>College Name</th>
+        <th>Course Code</th>
+        <th>District</th>
+        <th>Place</th>
+        <th>Contact No.</th>
+        <th>Website</th>
+        <th>NBA Accreditation</th>
+        <th>NAAC Rating</th>
+        <th>NIRF Ranking</th>
+        {% if preferences %}
+        <th>Preferences Match %</th>
+        {% endif %}
+      </tr>
+      {% for i in qs %}
+      <tr>
+        <td>
+          {{i.Eamcet_Code}}
+        </td>
+        <td>
+          {{i.College_Name}}
+        </td>
+        <td>
+          {{i.Course_Code}}
+        </td>
+        <td>
+          {{i.District}}
+        </td>
+        <td>
+          {{i.Place}}
+        </td>
+        <td>
+          {% if i.Contact_No == None %}
+          <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+          {% else %}
+          {{i.Contact_No}}
+          {% endif %}
+        </td>
+        <td>
+          {% if i.Website == None %}
+          <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+          {% else %}
+          {{i.Website}}
+          {% endif %}
+        </td>
+        <td>{% if i.NBA == None %}
+          <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+          {% else %}
+          <img src="https://img.icons8.com/flat_round/32/000000/checkmark.png" />
+          {% endif %}
+        </td>
+        <td>{% if i.NAAC == None %}
+          <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+          {% else %}
+          {{ i.NAAC }}
+          {% endif %}
+        </td>
+        <td>{% if i.NIRF == None %}
+          <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+          {% else %}
+          {{ i.NIRF }}
+          {% endif %}
+        </td>
+        {% if preferences %}
+        <td>
+          {{i.percentage}}
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+    {% elif querytype == 3 %}
+    <table>
+      <tr>
+        <th>Eamcet Code</th>
+        <th>College Name</th>
+        <th>Course Code</th>
+        <th>Place</th>
+        <th>Contact No.</th>
+        <th>Website</th>
+        <th>NBA Accreditation</th>
+        <th>NAAC Rating</th>
+        <th>NIRF Ranking</th>
+        {% if preferences %}
+        <th>Preferences Match %</th>
+        {% endif %}
+      </tr>
+      {% for i in qs %}
+      <tr>
+        <td>
+          {{i.Eamcet_Code}}
+        </td>
+        <td>
+          {{i.College_Name}}
+        </td>
+        <td>
+          {{i.Course_Code}}
+        </td>
+        <td>
+          {{i.Place}}
+        </td>
+        <td>
+          {% if i.Contact_No == None %}
+          <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+          {% else %}
+          {{i.Contact_No}}
+          {% endif %}
+        </td>
+        <td>
+          {% if i.Website == None %}
+          <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+          {% else %}
+          {{i.Website}}
+          {% endif %}
+        </td>
+        <td>{% if i.NBA == None %}
+          <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+          {% else %}
+          <img src="https://img.icons8.com/flat_round/32/000000/checkmark.png" />
+          {% endif %}
+        </td>
+        <td>{% if i.NAAC == None %}
+          <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+          {% else %}
+          {{ i.NAAC }}
+          {% endif %}
+        </td>
+        <td>{% if i.NIRF == None %}
+          <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+          {% else %}
+          {{ i.NIRF }}
+          {% endif %}
+        </td>
+        {% if preferences %}
+        <td>
+          {{i.percentage}}
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+  </div>
+  <input name="mail-btn" type="button" value="Send Mail" onclick="requestmailservice()">
+  <label name="user help">
+    * Inorder to avail the mail service make sure you are a registered user.<br>
+    * If already registered, login here, or else signup here.
+  </label>
+</div>
+
+
+{% endblock %}

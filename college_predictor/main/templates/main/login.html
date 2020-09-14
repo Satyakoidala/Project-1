@@ -1,0 +1,249 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block head %}
+<title>CollegePredictor</title>
+<link rel="stylesheet" href="{% static 'main/styles.css' %}">
+<link rel="stylesheet" href="{% static 'main/lin.css' %}">
+<link rel="stylesheet" href="{% static 'main/dualtab.css' %}">
+
+<script type="text/javascript">
+
+  let flag;
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('id_password1').placeholder = "Type Password";
+    document.getElementById('id_password2').placeholder = "Confirm Password";
+
+    if (window.location.pathname === "/main/login/") {
+      flag = true;
+      document.querySelector('.signup').style.display = 'none';
+      document.querySelector('.signin').style.display = 'initial';
+      document.querySelector('.s1class').style.color = '#f69009';
+      document.querySelector('.s2class').style.color = '#748194';
+      document.querySelector('#left').classList.add('left_hover');
+      document.querySelector('#right').classList.remove('right_hover');
+    }
+    else {
+      flag = false;
+      document.querySelector('.signin').style.display = 'none';
+      document.querySelector('.signup').style.display = 'initial';
+      document.querySelector('.s1class').style.color = '#748194';
+      document.querySelector('.s2class').style.color = '#0abd60';
+      document.querySelector('#left').classList.remove('left_hover');
+      document.querySelector('#right').classList.add('right_hover');
+    }
+
+  });
+
+  if (flag) {
+    function left() {
+      document.querySelector('.signup').style.display = 'none';
+      document.querySelector('.signin').style.display = 'initial';
+      document.querySelector('.s1class').style.color = '#f69009';
+      document.querySelector('.s2class').style.color = '#748194';
+      document.querySelector('#left').classList.add('left_hover');
+      document.querySelector('#right').classList.remove('right_hover');
+    }
+
+    function right() {
+      document.querySelector('.signup').style.display = 'initial';
+      document.querySelector('.signin').style.display = 'none';
+      document.querySelector('.s2class').style.color = '#0abd60';
+      document.querySelector('.s1class').style.color = '#748194';
+      document.querySelector('#right').classList.add('right_hover');
+      document.querySelector('#left').classList.remove('left_hover');
+    }
+  }
+  else {
+    function right() {
+      document.querySelector('.signin').style.display = 'none';
+      document.querySelector('.signup').style.display = 'initial';
+      document.querySelector('.s1class').style.color = '#748194';
+      document.querySelector('.s2class').style.color = '#0abd60';
+      document.querySelector('#left').classList.remove('left_hover');
+      document.querySelector('#right').classList.add('right_hover');
+    }
+
+    function left() {
+      document.querySelector('.signup').style.display = 'none';
+      document.querySelector('.signin').style.display = 'initial';
+      document.querySelector('.s1class').style.color = '#f69009';
+      document.querySelector('.s2class').style.color = '#748194';
+      document.querySelector('#left').classList.add('left_hover');
+      document.querySelector('#right').classList.remove('right_hover');
+    }
+  }
+
+  function pass_on() {
+    location.href = '/main/';
+  }
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+{% if not check %}
+
+<div class="topnav">
+  <label>College Predictor</label>
+  <div class="search-container">
+    <form action="{% url 'main:searchresult' %}" method="GET">
+      <input name="search-box" type="text" placeholder="Type College Name">
+      <button type="submit" value="Enter" style="color: grey;">Enter</button>
+    </form>
+  </div>
+
+  <a href="{% url 'main:contactUs' %}">Contact Us</a>
+  <a href="{% url 'main:aboutUs' %}">About Us</a>
+  <a href="{% url 'main:login' %}" class="active">Login/Signup</a>
+  <a href="{% url 'main:home' %}">Home</a>
+
+</div>
+
+<div class="context">
+  <div class="container">
+
+    <div class="c1">
+      <div class="c11">
+      </div>
+      <div id="left" onclick="left()">
+        <h1 class="s1class"><span>LOG</span><span class="su">IN</span>
+        </h1>
+      </div>
+      <div id="right" onclick="right()">
+        <h1 class="s2class"><span>SIGN</span><span class="su">UP</span></h1>
+      </div>
+    </div>
+
+    <div class="c2">
+      <form action="{% url 'main:signup' %}" method="POST" class="signup">
+        <h1 class="c2-title">SIGN UP</h1>
+
+        {% csrf_token %}
+
+
+        <div class="tooltip">
+          {{ form.username }}
+          <span class="tooltiptext">
+            {{ form.username.help_text }}
+          </span>
+        </div>
+
+        {% if form.username.errors %}
+        <small style='color:red;margin-left: 10px;'>Username already taken or invalid, Follow tooltip</small>
+        {% endif %}
+
+        <div class="tooltip">
+          {{ form.first_name }}
+          <span class="tooltiptext">
+            {{ form.first_name.help_text }}
+          </span>
+        </div>
+
+        {% if form.first_name.errors %}
+        <small style='color:red;margin-left: 10px;'>Please fill this field</small>
+        {% endif %}
+
+        <div class="tooltip">
+          {{ form.last_name }}
+          <span class="tooltiptext">
+            {{ form.last_name.help_text }}
+          </span>
+        </div>
+
+        {% if form.last_name.errors %}
+        <small style='color:red;margin-left: 10px;'>Please fill this field</small>
+        {% endif %}
+
+        <div class="tooltip">
+          {{ form.email }}
+          <span class="tooltiptext">
+            {{ form.email.help_text }}
+          </span>
+        </div>
+
+        {% if form.email.errors %}
+        <small style='color:red;margin-left: 10px;'>Enter a valid email address</small>
+        {% endif %}
+
+        <div class="tooltip">
+          {{ form.password1 }}
+          <span class="tooltiptext">
+            {{ form.password1.help_text }}
+          </span>
+        </div>
+
+        {% if form.password1.errors %}
+        <small style='color:red;margin-left: 10px;'>Please use the help of tooltip text</small>
+        {% endif %}
+
+        <div class="tooltip">
+          {{ form.password2 }}
+          <span class="tooltiptext">
+            {{ form.password2.help_text }}
+          </span>
+        </div>
+
+        {% if form.password2.errors %}
+        <small style='color:red;margin-left: 10px;'>Passwords didn't match or too similar to personal info.</small>
+        {% endif %}
+
+
+        <button class="btn">Sign Up</button>
+      </form>
+
+      <form action="{% url 'main:login' %}" method="POST" class="signin">
+        <h1 class="c2-title">LOG IN</h1>
+        {% csrf_token %}
+        <div style="text-align: center; padding-top: 20px; color:red">
+          {% if message %}
+          {{message}}
+          {% endif %}
+        </div>
+
+        <br><br><br><br>
+        <div class="tooltip">
+          <input name="username" type="text" placeholder="Username" class="inp" />
+          <span class="tooltiptext">Please fill your Username</span>
+        </div>
+        <div class="tooltip">
+          <input name="password" type="password" placeholder="Password" class="inp" />
+          <span class="tooltiptext">Please Type Your Password</span>
+        </div>
+        <button class="btn">Check In</button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+{% else %}
+
+<div class="topnav">
+  <label>College Predictor</label>
+  <div class="search-container">
+    <form action="">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit" value="Enter" style="color: grey;">Enter</button>
+    </form>
+  </div>
+
+  <a href="{% url 'main:logout' %}">Logout</a>
+  <a href="{% url 'main:contactUs' %}">Contact Us</a>
+  <a href="{% url 'main:aboutUs' %}">About Us</a>
+  <a href="{% url 'main:home' %}">Home</a>
+</div>
+
+
+<script type="text/javascript">
+
+  pass_on();
+</script>
+{% endif %}
+
+{% endblock %}

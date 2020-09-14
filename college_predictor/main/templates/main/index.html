@@ -1,0 +1,96 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block head %}
+<title>CollegePredictor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'main/styles.css' %}">
+<link rel="stylesheet" href="{% static 'main/i.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="topnav">
+  <label>College Predictor</label>
+  <div class="search-container">
+    <form action="{% url 'main:searchresult' %}" method="GET">
+      <input name="search-box" type="text" placeholder="Type College Name">
+      <button type="submit" value="Enter" style="color: grey;">Enter</button>
+    </form>
+  </div>
+
+  {% if check %}
+  <a href="{% url 'main:logout' %}">Logout</a>
+  <a href="{% url 'main:contactUs' %}">Contact Us</a>
+  <a href="{% url 'main:aboutUs' %}">About Us</a>
+  <a href="{% url 'main:home' %}">Home</a>
+  {% else %}
+  <a href="{% url 'main:contactUs' %}">Contact Us</a>
+  <a href="{% url 'main:aboutUs' %}">About Us</a>
+  <a href="{% url 'main:login' %}">Login/Signup</a>
+  <a href="{% url 'main:home' %}">Home</a>
+  {% endif %}
+
+</div>
+
+<div class="frame">
+  <div class="slideshow-container">
+
+    <div class="mySlides fade">
+      <div class="numbertext">1 / 4</div>
+      <img src="{% static 'main/1.jpg' %}" style="width:100%">
+
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">2 / 4</div>
+      <img src="{% static 'main/2.jpg' %}" style="width:100%">
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">3 / 4</div>
+      <img src="{% static 'main/3.jpg' %}" style="width:100%">
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">4 / 4</div>
+      <img src="{% static 'main/4.jpg' %}" style="width:100%">
+    </div>
+  </div>
+  <br>
+
+  <div style="text-align:center">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+
+</div>
+<div class="p1">FIND YOUR FAVORITE COLLEGE</div></br>
+
+<div class="p2">Answer a few questions and we'll help you make the right college decision</div>
+<script>
+  var slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) { slideIndex = 1 }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+    setTimeout(showSlides, 4000);
+  }
+</script>
+
+
+{% endblock %}

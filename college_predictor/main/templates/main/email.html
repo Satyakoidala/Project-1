@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Mail Response</title>
+  <style>
+    table {
+      background-color: white;
+      width: 100%;
+      border: 2px solid black;
+    }
+
+    th,
+    td {
+      text-align: center;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+
+</head>
+
+<body>
+  Hey {{user}}!,<br> Here's what you requested for. Please find the list of your colleges down below.<br>
+  {% if querytype == 1 %}
+  <table>
+    <tr>
+      <th>Eamcet Code</th>
+      <th>College Name</th>
+      <th>Course Code</th>
+      <th>Place</th>
+      <th>Contact No.</th>
+      <th>Website</th>
+      <th>NBA Accredition</th>
+      <th>NAAC Rating</th>
+      <th>NIRF Ranking</th>
+      {% if preferences %}
+      <th>Preferences Match %</th>
+      {% endif %}
+    </tr>
+    {% for i in qs %}
+    <tr>
+      <td>
+        {{i.Eamcet_Code}}
+      </td>
+      <td>
+        {{i.College_Name}}
+      </td>
+      <td>
+        {{i.Course_Code}}
+      </td>
+      <td>
+        {{i.Place}}
+      </td>
+      <td>
+        {% if i.Contact_No == None %}
+        <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+        {% else %}
+        {{i.Contact_No}}
+        {% endif %}
+      </td>
+      <td>
+        {% if i.Website == None %}
+        <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+        {% else %}
+        {{i.Website}}
+        {% endif %}
+      </td>
+      <td>{% if i.NBA == None %}
+        <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+        {% else %}
+        <img src="https://img.icons8.com/flat_round/32/000000/checkmark.png" />
+        {% endif %}
+      </td>
+      <td>{% if i.NAAC == None %}
+        <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+        {% else %}
+        {{ i.NAAC }}
+        {% endif %}
+      </td>
+      <td>{% if i.NIRF == None %}
+        <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+        {% else %}
+        {{ i.NIRF }}
+        {% endif %}
+      </td>
+
+      {% if preferences %}
+      <td>
+        {{i.percentage}}
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% elif querytype == 2 %}
+  <table>
+    <tr>
+      <th>Eamcet Code</th>
+      <th>College Name</th>
+      <th>Course Code</th>
+      <th>District</th>
+      <th>Place</th>
+      <th>Contact No.</th>
+      <th>Website</th>
+      <th>NBA Accredition</th>
+      <th>NAAC Rating</th>
+      <th>NIRF Ranking</th>
+      {% if preferences %}
+      <th>Preferences Match %</th>
+      {% endif %}
+    </tr>
+    {% for i in qs %}
+    <tr>
+      <td>
+        {{i.Eamcet_Code}}
+      </td>
+      <td>
+        {{i.College_Name}}
+      </td>
+      <td>
+        {{i.Course_Code}}
+      </td>
+      <td>
+        {{i.District}}
+      </td>
+      <td>
+        {{i.Place}}
+      </td>
+      <td>
+        {% if i.Contact_No == None %}
+        <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+        {% else %}
+        {{i.Contact_No}}
+        {% endif %}
+      </td>
+      <td>
+        {% if i.Website == None %}
+        <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+        {% else %}
+        {{i.Website}}
+        {% endif %}
+      </td>
+      <td>{% if i.NBA == None %}
+        <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+        {% else %}
+        <img src="https://img.icons8.com/flat_round/32/000000/checkmark.png" />
+        {% endif %}
+      </td>
+      <td>{% if i.NAAC == None %}
+        <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+        {% else %}
+        {{ i.NAAC }}
+        {% endif %}
+      </td>
+      <td>{% if i.NIRF == None %}
+        <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+        {% else %}
+        {{ i.NIRF }}
+        {% endif %}
+      </td>
+      {% if preferences %}
+      <td>
+        {{i.percentage}}
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% elif querytype == 3 %}
+  <table>
+    <tr>
+      <th>Eamcet Code</th>
+      <th>College Name</th>
+      <th>Course Code</th>
+      <th>Place</th>
+      <th>Contact No.</th>
+      <th>Website</th>
+      <th>NBA Accredition</th>
+      <th>NAAC Rating</th>
+      <th>NIRF Ranking</th>
+      {% if preferences %}
+      <th>Preferences Match %</th>
+      {% endif %}
+    </tr>
+    {% for i in qs %}
+    <tr>
+      <td>
+        {{i.Eamcet_Code}}
+      </td>
+      <td>
+        {{i.College_Name}}
+      </td>
+      <td>
+        {{i.Course_Code}}
+      </td>
+      <td>
+        {{i.Place}}
+      </td>
+      <td>
+        {% if i.Contact_No == None %}
+        <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+        {% else %}
+        {{i.Contact_No}}
+        {% endif %}
+      </td>
+      <td>
+        {% if i.Website == None %}
+        <label><img src="https://img.icons8.com/metro/26/000000/horizontal-line.png" /></label>
+        {% else %}
+        {{i.Website}}
+        {% endif %}
+      </td>
+      <td>{% if i.NBA == None %}
+        <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+        {% else %}
+        <img src="https://img.icons8.com/flat_round/32/000000/checkmark.png" />
+        {% endif %}
+      </td>
+      <td>{% if i.NAAC == None %}
+        <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+        {% else %}
+        {{ i.NAAC }}
+        {% endif %}
+      </td>
+      <td>{% if i.NIRF == None %}
+        <img src="https://img.icons8.com/flat_round/32/000000/delete-sign.png" />
+        {% else %}
+        {{ i.NIRF }}
+        {% endif %}
+      </td>
+      {% if preferences %}
+      <td>
+        {{i.percentage}}
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block head %}
+<title>CollegePredictor</title>
+<link rel="stylesheet" href="{% static 'main/styles.css' %}">
+
+<style>
+    .context {
+        text-align: center;
+        margin-top: 20%;
+        color: white;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        var seconds = 5;
+        var foo;
+        function redirect() {
+            location.href = "{% url 'main:home' %}";
+        }
+        function updateSecs() {
+            document.querySelector(".context .timer").innerHTML = "You will be redirected to home page in " + seconds + "s.";
+            seconds--;
+            if (seconds == -1) {
+                clearInterval(foo);
+                redirect();
+            }
+        }
+        function countdownTimer() {
+            foo = setInterval(function () {
+                updateSecs()
+            }, 1000);
+        }
+        countdownTimer();
+    });
+
+</script>
+
+{% endblock %}
+
+{% block body %}
+<div class="topnav">
+    <label>College Predictor</label>
+    <div class="search-container">
+        <form action="{% url 'main:searchresult' %}" method="GET">
+            <input name="search-box" type="text" placeholder="Type College Name">
+            <button type="submit" value="Enter" style="color: grey;">Enter</button>
+        </form>
+    </div>
+    {% if check %}
+    <a href="{% url 'main:logout' %}">Logout</a>
+    <a href="{% url 'main:contactUs' %}">Contact Us</a>
+    <a href="{% url 'main:aboutUs' %}" class="active">About Us</a>
+    <a href="{% url 'main:home' %}">Home</a>
+    {% else %}
+    <a href="{% url 'main:contactUs' %}">Contact Us</a>
+    <a href="{% url 'main:aboutUs' %}" class="active">About Us</a>
+    <a href="{% url 'main:login' %}">Login/Signup</a>
+    <a href="{% url 'main:home' %}">Home</a>
+    {% endif %}
+</div>
+
+
+<div class="context">
+    <p>Your mail is sent successfully. If you didn't find the mail in your inbox, please check the mail in Spam folder.
+    </p>
+    <p>All The Best</p>
+    <p class='timer'></p>
+</div>
+
+{% endblock %}

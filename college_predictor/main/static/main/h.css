@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css?family=Exo:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open Sans');
+
+*{
+  box-sizing: border-box;
+}
+html, body {
+  background: #191654;
+  background: -webkit-linear-gradient(to top, #43C6AC, #191654);  
+  background: linear-gradient(to top, #43C6AC, #191654); 
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif,sans-serif,Arial, Helvetica;
+  width:100%;
+  height:100%;
+  padding-bottom: 20px;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+.outer {
+  height: 90%;
+  padding: 30px;
+  margin:auto;
+  position: center;
+  overflow-y: auto;
+}
+
+.formtitle{
+  padding: 10px;
+}
+
+.formtitle p {
+  text-align: center; 
+  color: white;
+}
+
+.formbody {
+  display: block;
+  padding: 5px;
+  background-color: white;
+}
+
+.formtype {
+  display: block;
+  align-items: center;
+  padding: 5px;
+}
+
+.formtype label[name="searchby"] {
+  text-align: center;
+  margin-left: 350px;
+}
+
+.formtype input {
+  margin-left: 100px;
+}
+
+.form1, .form2, .form3{
+  display:none;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+label[name="user help"] {
+  color: #666666;
+  display: block;
+}
+
+.form1 label[name="for district"], .form2 label[name="for rank"], .form2 label[name="for caste"], .form2 label[name="for gender"] {
+    margin-top: 50px;
+    padding: 20px;
+    margin-left: 130px;
+  }
+  
+  .form3 label[name="for district"], .form3 label[name="for rank"], .form3 label[name="for caste"], .form3 label[name="for gender"] {
+    margin-top: 50px;
+    margin-left: 130px;
+    padding: 20px;
+  }
+  
+  .form1 select[name="choice-district"], .left_side select, .right_side select, .bottom select, .form2 select[name="choice-caste"],.form2 select[name="gender-out"], .form2 input[name="rank"], .form3 select[name="choice-district"],.form3 select[name="gender-out"], .form3 select[name="choice-caste"], .form3 input[name="rank"] {
+    width:200px;
+    size: 60px;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 6px 15px;
+    display: inline-block;
+  }
+
+  .form3 select[name="gender-out"],.form3 select[name="choice-district"]{
+      margin-left: 60px;
+  }
+
+  .form2 select[name="gender-out"]{
+    margin-left: 60px;
+  }
+
+  ::placeholder {
+      color:black;
+  }
+  
+  .form1 input[type="button"], .form2 input[type="button"], .form3 input[type="button"] {
+    background-color: #02c25f;
+    border: none;
+    size: 20px;
+    margin-left: 40px;
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    padding: 6px 15px;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .form1 input[name="submit-btn"], .form2 input[name="submit-btn"], .form3 input[name="submit-btn"] {
+    margin-left: 650px;
+    background-color: #02c25f;
+    border: none;
+    size: 20px;
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    padding: 6px 15px;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  input[name="preferences-checkbox"] {
+    margin-left: 100px;
+  }
+  
+  
+  #preferences1, #preferences2, #preferences3 {
+    display: none;
+    padding: 10px;
+  }
+  
+  .preference-box {
+    display: table;
+    clear: both;
+  }
+  
+  .left_side, .right_side {
+    width: 50%;
+    padding: 10px 40px;
+    display: table;
+    float: left;
+  }
+  
+  .left_side select,.right_side select {
+    float:right;
+  }
+  
+  .bottom {
+    width: 100%;
+    padding: 10px 40px;
+    display: table;
+  }
+  
+  .bottom select {
+    float: right;
+  }
+  
